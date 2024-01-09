@@ -39,7 +39,8 @@ jobs:
 
     - name: Push Docker Image to Registry
       run: |
-        echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        echo "${{ secrets.DOCKER_HUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_HUB_USERNAME }}" --password-stdin
         docker push gabriellft/laffitteassignment:${{ github.sha }}
         docker push gabriellft/laffitteassignment:latest
+
 
