@@ -31,3 +31,15 @@ jobs:
     - name: Test with pytest
       run: |
         pytest
+    - name: Build Docker Image
+      run: docker build -t gabriellft/laffitteassignment:${{ github.sha }} .
+
+    - name: Tag Image as Latest
+      run: docker tag gabriellft/laffitteassignment:${{ github.sha }} gabriellft/laffitteassignment:latest
+
+    - name: Push Docker Image to Registry
+      run: |
+        echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
+        docker push gabriellft/laffitteassignment:${{ github.sha }}
+        docker push gabriellft/laffitteassignment:latest
+
